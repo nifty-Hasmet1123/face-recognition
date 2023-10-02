@@ -1,0 +1,115 @@
+#signIn {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.wrapper {
+    border-radius: 0.25rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #ad065ab0;
+    box-shadow: 5px 5px 5px grey;
+}
+
+.header > h1 {
+    text-shadow: 1px 1px 1px grey;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label, 
+button, 
+a {
+    font-weight: 700;
+    color: #ad065ab0;
+    font-size: large;
+}
+
+.label-input {
+    padding: 3px;
+}
+
+.label-input > #password, #username {
+    padding: 5px;
+    width: 200px;
+    background-color: transparent;
+    border-radius: 10px;
+    box-shadow: inset 0 0 0 0 rgba(0, 5, 10, 0.1);
+    color: black;
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.label-input > #password:hover, #username:hover {
+    color: #fff;
+    box-shadow: inset 210px 0 0 0 rgba(0, 5, 10, 0.1);
+}
+
+.buttons-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    padding: 15px;
+}
+
+.buttons-container > #resButton, #resInput {
+    font-weight: 700;
+    color: #ad065ab0;
+    font-size: large;
+}
+
+.buttons-container > #resInput, #bcLogin {
+    padding: 10px;
+    width: 200px;
+    border-radius: 10px;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 0 rgba(0, 5, 10, 0.1);
+    transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.buttons-container > #bcLogin:hover, #resInput:hover {
+    color: #ad065ab0;
+    box-shadow: inset 210px 0 0 0 rgba(0, 5, 10, 0.1);
+    cursor: pointer;
+}
+
+.buttons-container > #bcLogin:active {
+    border: 2px solid black;
+}
+
+#sign-up {
+    margin-top: 0;
+}
+
+#su, #fp {
+    color: darkblue;
+    background-color: transparent;
+    border: none;
+    text-decoration: underline;
+    font-family: 'Courier New', Courier, monospace;
+    cursor: pointer;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 10px;
+}
+
+.rememberMeContainer > #rememberz {
+    margin-left: 0px;
+    padding: 0;
+    cursor: pointer;
+    width: 30px;
+}
+
+.rememberMeContainer > label {
+    margin: 0;
+}

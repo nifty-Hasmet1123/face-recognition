@@ -1,0 +1,14 @@
+.logo-container {
+    background: linear-gradient(89deg, #ff5edf 0%, #04C8DE 100%);
+    border: 2px solid orange;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px red;
+    padding: 3rem;
+}
+
+.tilt-logo {
+    display: flex;
+    justify-content: flex-start;
+    width: fit-content;
+    margin-left: 3rem;
+}
