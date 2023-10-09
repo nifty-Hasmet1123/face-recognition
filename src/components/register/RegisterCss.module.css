@@ -33,6 +33,11 @@
     transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
 }
 
+.inputBox::placeholder {
+    color: blueviolet;
+    font-style: italic;
+}
+
 .inputBox:hover {
     color: white;
     box-shadow: inset 510px 0 0 0 rgba(0, 5, 10, 0.1);

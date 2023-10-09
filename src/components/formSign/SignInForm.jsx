@@ -6,7 +6,10 @@ import "./SignInForm.css";
 //     event.target?.setCustomValidity("Please enter a valid URL");
 // }
 
-const SignInForm = ({ onRouteChange }) => {
+// needed this 
+let signInIdData;
+
+const SignInForm = ({ onRouteChange, setUserId }) => {
     const [ emailState, setEmailState ] = useState("");
     const [ passwordState, setPasswordState ] = useState("");
     const [ jsonData, setJsonData ] = useState({}); // modify this based on the response of your back-end api. In this case it returns an object
@@ -54,9 +57,11 @@ const SignInForm = ({ onRouteChange }) => {
             };
             
             try {
-                if (emailState.length > 5 && passwordState.length > 5) {
+                if (emailState.length > 5 && passwordState.length > 6) {
                     const response = await fetch("http://localhost:8001/signin", fetchConfiguration);
                     const responseJson = await response.json();
+                    
+                    setUserId(responseJson.id);
                     setJsonData(responseJson);
                 };
             } catch (error) {
@@ -65,7 +70,7 @@ const SignInForm = ({ onRouteChange }) => {
         };
         // call the function
         fetchBackEndData();
-    }, [ emailState, passwordState ]); // added this two state in the useEffect render
+    }, [ emailState, passwordState, setUserId ]); // added this two state in the useEffect render
 
     const onSignInSubmit = async () => {
         const validator = (email, password) => {
@@ -80,7 +85,8 @@ const SignInForm = ({ onRouteChange }) => {
                 alert("Enter valid username and password")
             };
         };
-
+        // assign signIn data id to this variable
+        signInIdData = jsonData.id;
         foundEntry() ? onRouteChange("home"): 
         console.error({ "Error": "Does not match" })
     };
@@ -161,4 +167,5 @@ const SignInForm = ({ onRouteChange }) => {
     );
 }
 
-export default SignInForm;
+export { SignInForm, signInIdData };
+// export default SignInForm;

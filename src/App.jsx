@@ -10,8 +10,8 @@ import ImageLinkForm from './components/image-link-form/ImageLinkForm';
 import Navigation from "./components/navigation/Navigation";
 import Logo from "./components/logo/Logo";
 import Rank from './components/rank/Rank';
-import SignInForm from './components/formSign/SignInForm';
 import Register from './components/register/Register';
+import { SignInForm } from './components/formSign/SignInForm';
 
 // class-based component
 export default class App extends React.Component {
@@ -23,6 +23,7 @@ export default class App extends React.Component {
       route: "signIn", // make the signIn form the first display when opening this application
       boxes: [],
       isSignedIn: false,
+      currentUserId: null
     };
   }
 
@@ -131,14 +132,14 @@ export default class App extends React.Component {
         />
         {
           // conditional statement for routing sign in and register form
-          this.state?.route === "signIn" ? <SignInForm onRouteChange={this.onRouteChange}/>:
-          this.state?.route === "register" ? <Register onRouteChange={this.onRouteChange}/>:
+          this.state?.route === "signIn" ? <SignInForm onRouteChange={ this.onRouteChange } setUserId={ (userId) => this.setState({ currentUserId: userId })}/>:
+          this.state?.route === "register" ? <Register onRouteChange={ this.onRouteChange } setUserId={ (userId) => this.setState({ currentUserId: userId })}/>:
           this.state?.route === "home" &&
             <>
               <Logo />
               <Rank />
-              <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit}/>
-              <FaceRecognition imageUrl={this.state?.imageUrl} boxes={this.state?.boxes} />
+              <ImageLinkForm onInputChange={ this.onInputChange } onButtonSubmit={ this.onButtonSubmit } userId={ this.state.currentUserId }/>
+              <FaceRecognition imageUrl={ this.state?.imageUrl } boxes={ this.state?.boxes } />
             </>
         }
       </main>

@@ -13,8 +13,8 @@
 import { useState } from "react";
 import RegisterCss from "./RegisterCss.module.css";
 
-const Register = ({ onRouteChange }) => {
-    
+// let idForImage;
+const Register = ({ onRouteChange, setUserId }) => {
     // useState returns 2 arrays (first: current-state, second: state update function)
     const [confirmationPassword, setConfirmationPassword] = useState("");
     const [password, setPassword] = useState("");
@@ -35,7 +35,14 @@ const Register = ({ onRouteChange }) => {
                 });
                 
                 const response = await dataFetchFromRegister.json();
-                console.log(response);
+                // console.log(response);
+                // console.log(jsonDataRegister);
+                // idForImage = response.id;
+                // console.log(response.id);
+                // console.log(typeof(response.id));
+
+                // set the signInIdData when it comes from the Register
+                setUserId(response.id);
                 setJsonDataRegister(response);
             }
         } catch (error) {
@@ -81,6 +88,7 @@ const Register = ({ onRouteChange }) => {
                         id="rUsername" 
                         name="rUsername" 
                         value={ username }
+                        placeholder="Email only here"
                         className={ `${ RegisterCss.pads } ${ RegisterCss.inputBox }` }
                         onChange={ (event) => setUsername(event?.target?.value)}
                     />
@@ -129,5 +137,7 @@ const Register = ({ onRouteChange }) => {
         </div>
     );
 };
+
+// export { Register, idForImage };
 
 export default Register;
