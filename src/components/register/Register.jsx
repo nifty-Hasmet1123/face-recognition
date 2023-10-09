@@ -19,6 +19,29 @@ const Register = ({ onRouteChange }) => {
     const [confirmationPassword, setConfirmationPassword] = useState("");
     const [password, setPassword] = useState("");
     const [username, setUsername] = useState("");
+    const [jsonDataRegister, setJsonDataRegister] = useState({});
+
+    const fetchRegisterApi = async () => {
+        try {
+            if (!!password && !!username) {
+                const dataFetchFromRegister = await fetch("http://localhost:8001/register", {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    // body attributes should match in the back-end side
+                    body: JSON.stringify({
+                        email: username,
+                        password: password
+                    })
+                });
+                
+                const response = await dataFetchFromRegister.json();
+                console.log(response);
+                setJsonDataRegister(response);
+            }
+        } catch (error) {
+            console.error({ Error: "error in fetching api" })
+        };
+    };
 
     const usernameAndPasswordValidity = () => {
         let condition;
@@ -32,14 +55,12 @@ const Register = ({ onRouteChange }) => {
 
     const validityCheck = (event) => {
         event.preventDefault(); // prevents auto-refresh after clicking confirm (for console.logs)
-        
+        fetchRegisterApi();
         // logic for routing after checking
         // added additional condition if password and username and 
         // confirm password is not null or empty string
-        if (!!password && !!username && !!confirmationPassword) {
-            confirmationPassword !== password ? 
-            alert("confirmation password and password is not the same"):
-
+        if (!!password && !!username && !!confirmationPassword && !!jsonDataRegister) {
+            confirmationPassword !== password ? alert("confirmation password and password is not the same"):
             usernameAndPasswordValidity() ? onRouteChange("home"):
             console.error("validity error")
         } else {
@@ -48,20 +69,20 @@ const Register = ({ onRouteChange }) => {
     };
 
     return (
-        <form action="" className={RegisterCss.registerForm}>
+        <div className={RegisterCss.registerForm}>
             <div className={RegisterCss.registerWrapper}>
                 <header>
                     <h1>Register Form</h1>
                 </header>
-                <div className={RegisterCss.createUserName}>
-                    <label htmlFor="rUsername" className={RegisterCss.pads}>Create New Username: </label>
+                <div className={ RegisterCss.createUserName }>
+                    <label htmlFor="rUsername" className={ RegisterCss.pads }>Create New Username: </label>
                     <input 
                         type="text" 
                         id="rUsername" 
                         name="rUsername" 
                         value={ username }
-                        className={ `${RegisterCss.pads} ${RegisterCss.inputBox}` }
-                        onChange={ (event) => setUsername(event.target.value)}
+                        className={ `${ RegisterCss.pads } ${ RegisterCss.inputBox }` }
+                        onChange={ (event) => setUsername(event?.target?.value)}
                     />
                 </div>
                 <div>
@@ -71,8 +92,8 @@ const Register = ({ onRouteChange }) => {
                         type="password" 
                         id="rPassword"
                         name="rPassword"// add this for the input reset to recognize it when resetting
-                        value={password} 
-                        onChange={ (event) => setPassword(event.target.value) }
+                        value={ password } 
+                        onChange={ (event) => setPassword(event?.target?.value) }
                     /> 
                 </div>
                 <div>
@@ -82,12 +103,12 @@ const Register = ({ onRouteChange }) => {
                         type="password" 
                         id="confirmP"
                         name="confirmP"
-                        value={confirmationPassword}
-                        onChange={ (event) => setConfirmationPassword(event.target.value) }
+                        value={ confirmationPassword }
+                        onChange={ (event) => setConfirmationPassword(event?.target?.value) }
                     />
                 </div>
                 <div className={ RegisterCss.buttonsSelect }>
-                    <button className={ RegisterCss.buttonConfirm } onClick={validityCheck} type="submit">Confirm</button>
+                    <button className={ RegisterCss.buttonConfirm } onClick={ validityCheck } type="submit">Confirm</button>
                     <button 
                         className={ RegisterCss.buttonReset } 
                         type="button"
@@ -105,7 +126,7 @@ const Register = ({ onRouteChange }) => {
                     </button>
                 </div>
             </div>
-        </form>
+        </div>
     );
 };
 

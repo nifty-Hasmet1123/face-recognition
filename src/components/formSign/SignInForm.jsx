@@ -88,7 +88,7 @@ const SignInForm = ({ onRouteChange }) => {
     // added enter event 
     const onEnterKeyDown = (event) => {
         event.key === "Enter" && onSignInSubmit();
-        event.key === "Enter" && console.log(event.key);
+        // event.key === "Enter" && console.log(event.key);
     };
 
     return (
