@@ -1,5 +1,4 @@
-import { useState } from "react";
-import RegisterCss from "./RegisterCss.module.css";
+
 
 // dom manipulation
 // const inputElement = () => {
@@ -10,6 +9,9 @@ import RegisterCss from "./RegisterCss.module.css";
 //     console.log(confirmationPassword.value, password.value): 
 //     alert("confirmation Password and password is not the same")
 // }
+
+import { useState } from "react";
+import RegisterCss from "./RegisterCss.module.css";
 
 const Register = ({ onRouteChange }) => {
     
@@ -45,9 +47,6 @@ const Register = ({ onRouteChange }) => {
         }
     };
 
-    // line 63 assignment of user's input value to the empty password string. same in line 75, line 86
-    // added setPassword function to line 40
-
     return (
         <form action="" className={RegisterCss.registerForm}>
             <div className={RegisterCss.registerWrapper}>
@@ -60,15 +59,15 @@ const Register = ({ onRouteChange }) => {
                         type="text" 
                         id="rUsername" 
                         name="rUsername" 
-                        value={username}
-                        className={`${RegisterCss.pads} ${RegisterCss.inputBox}`}
+                        value={ username }
+                        className={ `${RegisterCss.pads} ${RegisterCss.inputBox}` }
                         onChange={ (event) => setUsername(event.target.value)}
                     />
                 </div>
                 <div>
-                    <label htmlFor="rPassword" className={RegisterCss.pads}>Create New Password: </label>
+                    <label htmlFor="rPassword" className={ RegisterCss.pads }>Create New Password: </label>
                     <input 
-                        className={`${RegisterCss.pads} ${RegisterCss.inputBox}`}
+                        className={`${RegisterCss.pads} ${ RegisterCss.inputBox }`}
                         type="password" 
                         id="rPassword"
                         name="rPassword"// add this for the input reset to recognize it when resetting
@@ -77,9 +76,9 @@ const Register = ({ onRouteChange }) => {
                     /> 
                 </div>
                 <div>
-                    <label htmlFor="confirmP" className={RegisterCss.pads}>Confirm New Password: </label>
+                    <label htmlFor="confirmP" className={ RegisterCss.pads }>Confirm New Password: </label>
                     <input
-                        className={`${RegisterCss.pads} ${RegisterCss.inputBox}`}
+                        className={`${RegisterCss.pads} ${ RegisterCss.inputBox }`}
                         type="password" 
                         id="confirmP"
                         name="confirmP"
@@ -87,10 +86,10 @@ const Register = ({ onRouteChange }) => {
                         onChange={ (event) => setConfirmationPassword(event.target.value) }
                     />
                 </div>
-                <div className={RegisterCss.buttonsSelect}>
-                    <button className={RegisterCss.buttonConfirm} onClick={validityCheck}>Confirm</button>
+                <div className={ RegisterCss.buttonsSelect }>
+                    <button className={ RegisterCss.buttonConfirm } onClick={validityCheck} type="submit">Confirm</button>
                     <button 
-                        className={RegisterCss.buttonReset} 
+                        className={ RegisterCss.buttonReset } 
                         type="button"
                         onClick={ (event) => {
                             // Check if the event came from the reset button

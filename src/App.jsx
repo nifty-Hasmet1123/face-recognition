@@ -1,7 +1,10 @@
 import './App.css';
+
+// libraries
 import React from 'react';
 import ParticlesBg from 'particles-bg';
 
+// components
 import FaceRecognition from './components/face-recognition/FaceRecognition';
 import ImageLinkForm from './components/image-link-form/ImageLinkForm';
 import Navigation from "./components/navigation/Navigation";
@@ -10,6 +13,7 @@ import Rank from './components/rank/Rank';
 import SignInForm from './components/formSign/SignInForm';
 import Register from './components/register/Register';
 
+// class-based component
 export default class App extends React.Component {
   constructor() {
     super();
@@ -18,10 +22,11 @@ export default class App extends React.Component {
       imageUrl: "",
       route: "signIn", // make the signIn form the first display when opening this application
       boxes: [],
-      isSignedIn: false
+      isSignedIn: false,
     };
   }
 
+  // calculate face region for creating css box for the face
   calculateFaceLocation = (argInput) => {
     // dom manipulation
     const regions = argInput.outputs[0].data.regions;
@@ -43,8 +48,7 @@ export default class App extends React.Component {
   
     return faceLocations;
   };
-  
-  
+
   // seperate function for displaying the box
   displayFaceBox = (boxes) => {
     // note: match the argument name to the this.state.boxes
@@ -90,7 +94,8 @@ export default class App extends React.Component {
           },
           body: raw
       };
-
+      
+      // fetch api here (to-do: make this into async await instead)
       fetch("https://api.clarifai.com/v2/models/" + MODEL_ID + "/outputs", requestOptions)
           .then(response => response.json())
           .then(result => {
@@ -114,6 +119,7 @@ export default class App extends React.Component {
     this.setState({ route: routeLoc });
   };
   
+  // main render page
   render() {
     return (
       <main className='App'>
@@ -140,3 +146,18 @@ export default class App extends React.Component {
   };
 };
 
+// from react.component library
+// for checking only if backend is connecting to front-end
+// async componentDidMount() {
+//   try {
+//     const response = await fetch("http://localhost:8001");
+//     const responseJson = await response.json();
+//     console.log({ "From react": responseJson });
+//   } catch (e) {
+//     console.error({ "An unexpected error occured": e })
+//   };
+  
+//   // fetch("http://localhost:8001")
+//   //   .then(response => response.json())
+//   //   .then(data => console.log(data))
+// }
