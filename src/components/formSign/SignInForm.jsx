@@ -6,8 +6,6 @@ import "./SignInForm.css";
 //     event.target?.setCustomValidity("Please enter a valid URL");
 // }
 
-// needed this 
-let signInIdData;
 
 const SignInForm = ({ onRouteChange, setUserId }) => {
     const [ emailState, setEmailState ] = useState("");
@@ -86,7 +84,6 @@ const SignInForm = ({ onRouteChange, setUserId }) => {
             };
         };
         // assign signIn data id to this variable
-        signInIdData = jsonData.id;
         foundEntry() ? onRouteChange("home"): 
         console.error({ "Error": "Does not match" })
     };
@@ -167,5 +164,5 @@ const SignInForm = ({ onRouteChange, setUserId }) => {
     );
 }
 
-export { SignInForm, signInIdData };
-// export default SignInForm;
+// export { SignInForm, signInIdData };
+export default SignInForm;

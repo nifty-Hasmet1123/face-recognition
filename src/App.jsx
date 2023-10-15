@@ -11,7 +11,7 @@ import Navigation from "./components/navigation/Navigation";
 import Logo from "./components/logo/Logo";
 import Rank from './components/rank/Rank';
 import Register from './components/register/Register';
-import { SignInForm } from './components/formSign/SignInForm';
+import SignInForm from './components/formSign/SignInForm';
 
 // class-based component
 export default class App extends React.Component {
