@@ -29,7 +29,7 @@ export default class App extends React.Component {
 
   // calculate face region for creating css box for the face
   calculateFaceLocation = (argInput) => {
-    // dom manipulation
+  
     const regions = argInput.outputs[0].data.regions;
     const imageTarget = document.getElementById("image-input");
     const imageHeight = imageTarget.height;
@@ -129,6 +129,7 @@ export default class App extends React.Component {
           onRouteChange={this.onRouteChange} 
           isSignedIn={this.state.isSignedIn} 
           currentRoute={this.state.route}
+          setUserId={this.state.currentUserId}
         />
         {
           // conditional statement for routing sign in and register form

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import "./SignInForm.css";
 // import Tilt from "react-parallax-tilt";
 
@@ -10,82 +10,66 @@ import "./SignInForm.css";
 const SignInForm = ({ onRouteChange, setUserId }) => {
     const [ emailState, setEmailState ] = useState("");
     const [ passwordState, setPasswordState ] = useState("");
-    const [ jsonData, setJsonData ] = useState({}); // modify this based on the response of your back-end api. In this case it returns an object
+    // const [ jsonData, setJsonData ] = useState({}); // modify this based on the response of your back-end api. In this case it returns an object
     // const [ mainData, setMainData ] = useState([]);
     // const [ fetchTimeout, setFetchTimeout ] = useState(null);
     
     // creates states onChange
     const onChangeEmail = (event) => {
         const emailValue = event?.target?.value;
-        // setEmailState(emailValue);
-        setEmailState(prev => emailValue);
+        setEmailState(emailValue);
+        // setEmailState(prev => emailValue);
     }
     // const onPasswordChange = (event) => setPasswordState(event?.target?.value);
     const onPasswordChange = (event) => {
         const passwordValue = event?.target?.value;
-        // setPasswordState(passwordValue);
-        setPasswordState(prev => passwordValue);
+        setPasswordState(passwordValue);
+        // setPasswordState(prev => passwordValue);
     };
 
     // reset the fields
     const onClickReset = () => {
         setEmailState("");
         setPasswordState("")
-    }
+    };
     
-    // const backEndData = async () => {
-    //     const fetchData = await fetch("http://localhost:8001/");
-    //     const response = await fetchData.json();
-
-    //     setMainData(response);
-    // };
-    
-    // useEffect for fetching api's 
-    // use the second argument of fetch and modifying the default method
-    useEffect(() => {
-        const fetchBackEndData = async () => {
-            // init parameter for fetch accepts a `object` configuration options.
-            const fetchConfiguration = {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    email: emailState,
-                    password: passwordState
-                })
-            };
-            
-            try {
-                if (emailState.length > 5 && passwordState.length > 6) {
-                    const response = await fetch("http://localhost:8001/signin", fetchConfiguration);
-                    const responseJson = await response.json();
-                    
-                    setUserId(responseJson.id);
-                    setJsonData(responseJson);
-                };
-            } catch (error) {
-                return console.error({ "Error fetching data" : error });
-            };
+    const fetchBackEndData = async () => {
+        const fetchConfiguration = {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                email: emailState,
+                password: passwordState
+            })
         };
-        // call the function
-        fetchBackEndData();
-    }, [ emailState, passwordState, setUserId ]); // added this two state in the useEffect render
+
+        try {
+            if (!!emailState && !!passwordState) {
+                const response = await fetch("http://localhost:8001/signin", fetchConfiguration);
+                const responseJson = await response.json();
+
+                return responseJson;
+                
+                // console.log({ "full json data": responseJson });
+                // console.log({ id: responseJson["user_id"] })
+                // console.log(responseJson.valid)
+            }
+        } catch (error) {
+            return console.error({ "Error fetching data": error });
+        };
+    };
 
     const onSignInSubmit = async () => {
-        const validator = (email, password) => {
-            return email.toString() === emailState && password === passwordState;
+        const responseJson = await fetchBackEndData();
+        
+        console.log({ "signinsubmit": responseJson });
+        
+        if ("valid" in responseJson) {
+            console.log(true)
+            setUserId(responseJson["user_id"]);
+            onRouteChange("home");
+            // setJsonData(responseJson);
         };
-
-        const foundEntry = () => {
-            try {
-                const { email, password } = jsonData;
-                return validator(email, password);
-            } catch (error) {
-                alert("Enter valid username and password")
-            };
-        };
-        // assign signIn data id to this variable
-        foundEntry() ? onRouteChange("home"): 
-        console.error({ "Error": "Does not match" })
     };
 
     // added enter event 
@@ -100,7 +84,7 @@ const SignInForm = ({ onRouteChange, setUserId }) => {
                 <header className="header">
                     <h1>Sign In</h1>
                 </header>
-                <main className="container" onKeyDown={onEnterKeyDown}> {/* added onEnterKeyDown on main container */}
+                <main className="container" onKeyDown={ onEnterKeyDown }> {/* added onEnterKeyDown on main container */}
                     <div className="uname-div label-input">
                         <label htmlFor="username">Username: </label>
                         <input 

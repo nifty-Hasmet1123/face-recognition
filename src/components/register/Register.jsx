@@ -35,13 +35,6 @@ const Register = ({ onRouteChange, setUserId }) => {
                 });
                 
                 const response = await dataFetchFromRegister.json();
-                // console.log(response);
-                // console.log(jsonDataRegister);
-                // idForImage = response.id;
-                // console.log(response.id);
-                // console.log(typeof(response.id));
-
-                // set the signInIdData when it comes from the Register
                 setUserId(response.id);
                 setJsonDataRegister(response);
             }
