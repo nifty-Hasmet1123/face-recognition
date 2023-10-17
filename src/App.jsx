@@ -55,12 +55,12 @@ export default class App extends React.Component {
     // note: match the argument name to the this.state.boxes
     console.log(boxes);
     this.setState({ boxes })
-  }
+  };
 
   onInputChange = (e) => {
     // setState based on users input
     this.setState({ input: e.target?.value });
-  }
+  };
 
   onButtonSubmit = () => {
     // using second argument of setState to trigger correctly the rendering of this.state.imageURL
@@ -113,6 +113,7 @@ export default class App extends React.Component {
 
     if (routeLoc === "signOut") {
       this.setState({ isSignedIn: false })
+      this.setState({ currentUserId: null })
     } else if (routeLoc === "home") {
       this.setState({ isSignedIn: true } )
     };
@@ -126,10 +127,10 @@ export default class App extends React.Component {
       <main className='App'>
         <ParticlesBg bg={true} type='cobweb'/>
         <Navigation 
-          onRouteChange={this.onRouteChange} 
-          isSignedIn={this.state.isSignedIn} 
-          currentRoute={this.state.route}
-          setUserId={this.state.currentUserId}
+          onRouteChange={ this.onRouteChange } 
+          isSignedIn={ this.state.isSignedIn } 
+          currentRoute={ this.state.route }
+          setUserId={ this.state.currentUserId }
         />
         {
           // conditional statement for routing sign in and register form
