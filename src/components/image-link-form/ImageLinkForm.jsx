@@ -8,25 +8,26 @@ const ImageLinkForm = ({ onInputChange, onButtonSubmit, userId }) => {
     const nameRef = useRef("");
 
     async function fetchImageApi() {
-        const data = await fetch("http://localhost:8001/image", {
-            method: "put",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                id: userId
-            })
-        });
-        const response = await data.json();
-        const { id, name } = response;
+        try {
+            const data = await fetch("http://localhost:8001/image", {
+                method: "put",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: userId
+                })
+            });
+            const response = await data.json();
+            const { id, name } = response;
         
-        console.log(
-            `Entries added succesfully to ${name} with id number ${id}`
-            );
-        
-        // hook the name to the useRef instance
-        nameRef.current = name;
+            console.log(`Entries added succesfully to ${name} with id number ${id}`);
+            // hook the name to the useRef instance
+            nameRef.current = name;
 
-        // now to display, set the useState to true;
-        setShowDisplay(true);
+            // now to display, set the useState to true;
+            setShowDisplay(true);
+        } catch (error) {
+            console.error("Error fetching image data:", error);
+        };
     };
 
     const callButtonSubmitAndIncrementCount = () => {
